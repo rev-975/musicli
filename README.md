@@ -98,7 +98,9 @@ gcc -o musplayer main.o playlist.o ui.o controls.o globals.o `pkg-config --libs 
 ./musplayer playlist.txt
 ```
 
-3. Use the controls to navigate, play, pause, and adjust settings.
+3. Run make in the directory where you've cloned the repo and then run ./musplayer ~/Music/playlist.txt
+
+4. Use the controls to navigate, play, pause, and adjust settings.
 
 ---
 

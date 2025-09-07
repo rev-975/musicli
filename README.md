@@ -92,13 +92,13 @@ gcc -o musplayer main.o playlist.o ui.o controls.o globals.o `pkg-config --libs 
 /home/user/Music/song3.mp3
 ```
 
-2. Run the player with the playlist:
+2. Run make in the directory where you've cloned the repo
+
+3. Run the player with the playlist:
 
 ```bash
 ./musplayer playlist.txt
 ```
-
-3. Run make in the directory where you've cloned the repo and then run ./musplayer ~/Music/playlist.txt
 
 4. Use the controls to navigate, play, pause, and adjust settings.
 

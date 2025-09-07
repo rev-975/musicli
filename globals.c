@@ -6,8 +6,7 @@ char *songs[MAX_SONGS];
 char *filenames[MAX_SONGS];
 int song_count = 0;
 
-int cursor_index = 0;
-int current_playing_index = -1;
+int selected_index = 0; // Combined cursor and playing index
 
 double speed = 1.0;
 double volume = 50.0;
@@ -37,4 +36,3 @@ char *my_strcasestr(const char *haystack, const char *needle) {
     }
     return NULL;
 }
-

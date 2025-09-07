@@ -35,30 +35,29 @@ void play_song(int index) {
     mpv_command(mpv, args);
     mpv_set_property(mpv, "speed", MPV_FORMAT_DOUBLE, &speed);
     mpv_set_property(mpv, "volume", MPV_FORMAT_DOUBLE, &volume);
-    current_playing_index = index;
+    selected_index = index; // Update both cursor and playing index
 }
 
 void play_next_song() {
     if (shuffle_mode) {
         int next = rand() % song_count;
         play_song(next);
-        cursor_index = next;
-    } else if (current_playing_index >= 0) {
-        int next = current_playing_index + 1;
+    } else {
+        int next = selected_index + 1;
         if (next >= song_count) {
             if (repeat_mode) next = 0;
             else return;
         }
         play_song(next);
-        cursor_index = next;
     }
 }
 
 void play_prev_song() {
-    if (current_playing_index > 0) {
-        int prev = current_playing_index - 1;
+    if (selected_index > 0) {
+        int prev = selected_index - 1;
         play_song(prev);
-        cursor_index = prev;
+    } else if (repeat_mode) {
+        // If at first song and repeat mode is on, wrap to last song
+        play_song(song_count - 1);
     }
 }
-

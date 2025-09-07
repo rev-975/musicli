@@ -10,8 +10,7 @@ extern char *songs[MAX_SONGS];
 extern char *filenames[MAX_SONGS];
 extern int song_count;
 
-extern int cursor_index;
-extern int current_playing_index;
+extern int selected_index; // Combined cursor and playing index
 
 extern double speed;
 extern double volume;
@@ -32,4 +31,3 @@ extern mpv_handle *mpv;
 char *my_strcasestr(const char *haystack, const char *needle);
 
 #endif
-

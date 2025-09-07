@@ -34,36 +34,52 @@ int main(int argc, char *argv[]) {
     timeout(100);
 
     int ch;
+    bool auto_advance_enabled = true; // Control automatic song advancement
+    
     while (1) {
-        // handle keypress
+        // handle key press
         ch = getch();
         if (ch == 'q') break;
-        if (ch != ERR) handle_keypress(ch);
+        if (ch != ERR) {
+            handle_keypress(ch);
+            // Disable auto-advance when user interacts
+            auto_advance_enabled = false;
+        }
 
-        // poll mpv events (non-blocking)
+        // poll mpv events non-blocking
         mpv_event *event;
         while ((event = mpv_wait_event(mpv, 0)) && event->event_id != MPV_EVENT_NONE) {
             if (event->event_id == MPV_EVENT_END_FILE) {
-                // song finished
-                if (repeat_mode) {
-                    play_song(current_playing_index);      // repeat current song
-                } else if (shuffle_mode) {
-                    int next = rand() % song_count;       // pick random song
-                    play_song(next);
-                } else {
-                    play_next_song();                     // play next in playlist
+                // Only auto-advance if enabled and not in search mode
+                if (auto_advance_enabled && !search_active) {
+                    if (repeat_mode) {
+                        play_song(selected_index);  // repeat current
+                    } else if (shuffle_mode) {
+                        int next = rand() % song_count;
+                        play_song(next);
+                    } else {
+                        play_next_song();
+                    }
                 }
             }
         }
 
-        // update current song time for UI
-        if (current_playing_index >= 0) {
-            mpv_get_property(mpv, "time-pos", MPV_FORMAT_DOUBLE, &current_time);
-            mpv_get_property(mpv, "duration", MPV_FORMAT_DOUBLE, &total_time);
+        // Re-enable auto-advance after a short delay
+        static int auto_advance_counter = 0;
+        if (!auto_advance_enabled) {
+            auto_advance_counter++;
+            if (auto_advance_counter > 50) { // ~0.5 seconds
+                auto_advance_enabled = true;
+                auto_advance_counter = 0;
+            }
         }
 
-        draw_ui();                     // redraw UI
-        usleep(10000);                 // small delay
+        // update song time for UI
+        mpv_get_property(mpv, "time-pos", MPV_FORMAT_DOUBLE, &current_time);
+        mpv_get_property(mpv, "duration", MPV_FORMAT_DOUBLE, &total_time);
+
+        draw_ui();
+        usleep(10000); // small delay
     }
 
     endwin();
@@ -76,4 +92,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-

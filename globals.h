@@ -4,16 +4,32 @@
 #include <stdbool.h>
 #include <mpv/client.h>
 
-// mpv handle
-extern mpv_handle *mpv;
+#define MAX_SONGS 1000
 
-// search globals
+extern char *songs[MAX_SONGS];
+extern char *filenames[MAX_SONGS];
+extern int song_count;
+
+extern int cursor_index;
+extern int current_playing_index;
+
+extern double speed;
+extern double volume;
+
 extern bool search_active;
 extern char search_query[256];
 extern int search_len;
 
-// visualizer toggle
-extern bool visualizer_on;
+extern bool shuffle_mode;
+extern bool repeat_mode;
+
+extern double current_time; // elapsed time in seconds
+extern double total_time;   // total duration in seconds
+
+extern mpv_handle *mpv;
+
+// utility function for case-insensitive substring search
+char *my_strcasestr(const char *haystack, const char *needle);
 
 #endif
 

@@ -1,15 +1,19 @@
 CC = gcc
 CFLAGS = -Wall -O2 `pkg-config --cflags mpv ncurses`
-LDFLAGS = `pkg-config --libs mpv ncurses`
+LDFLAGS = `pkg-config --libs mpv ncurses` -lm
 
-OBJS = main.o playlist.o ui.o controls.o
+SOURCES = main.c playlist.c controls.c ui.c globals.c
+OBJECTS = $(SOURCES:.c=.o)
+TARGET = musplayer
 
-musplayer: $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) $(LDFLAGS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o musplayer
+	rm -f $(OBJECTS) $(TARGET)
 

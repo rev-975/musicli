@@ -19,6 +19,9 @@ int search_len = 0;
 bool shuffle_mode = false;
 bool repeat_mode = false;
 
+double current_time = 0.0;
+double total_time = 0.0;
+
 mpv_handle *mpv = NULL;
 
 // custom case-insensitive substring search

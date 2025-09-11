@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     timeout(100);
 
     int ch;
-    bool auto_advance_enabled = true; // Control automatic song advancement
+    bool auto_advance_enabled = true; // control automatic song advancement
     
     while (1) {
         // handle key press
@@ -42,11 +42,9 @@ int main(int argc, char *argv[]) {
         if (ch == 'q') break;
         if (ch != ERR) {
             handle_keypress(ch);
-            // Disable auto-advance when user interacts
             auto_advance_enabled = false;
         }
 
-        // poll mpv events non-blocking
         mpv_event *event;
         while ((event = mpv_wait_event(mpv, 0)) && event->event_id != MPV_EVENT_NONE) {
             if (event->event_id == MPV_EVENT_END_FILE) {

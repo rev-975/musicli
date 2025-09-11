@@ -35,7 +35,7 @@ void play_song(int index) {
     mpv_command(mpv, args);
     mpv_set_property(mpv, "speed", MPV_FORMAT_DOUBLE, &speed);
     mpv_set_property(mpv, "volume", MPV_FORMAT_DOUBLE, &volume);
-    selected_index = index; // Update both cursor and playing index
+    selected_index = index;
 }
 
 void play_next_song() {
@@ -57,7 +57,7 @@ void play_prev_song() {
         int prev = selected_index - 1;
         play_song(prev);
     } else if (repeat_mode) {
-        // If at first song and repeat mode is on, wrap to last song
+        // if at first song and repeat mode is on, wrap to last song
         play_song(song_count - 1);
     }
 }

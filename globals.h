@@ -10,8 +10,7 @@ extern char *songs[MAX_SONGS];
 extern char *filenames[MAX_SONGS];
 extern int song_count;
 
-extern int selected_index; // Combined cursor and playing index
-
+extern int selected_index; 
 extern double speed;
 extern double volume;
 

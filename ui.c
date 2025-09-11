@@ -25,7 +25,7 @@ void draw_ui() {
     }
 
     // controls info
-    mvprintw(1, 0, "mus player  [q] quit  [enter] play  [p/space] pause  [+/-] speed  [[]/]] volume  [/]=search  [s] shuffle  [r] repeat");
+    mvprintw(1, 0, "mus player  [q] quit  [enter] play  [p/space] pause  [+/-] speed  [[/]] volume  [/]=search  [s] shuffle  [r] repeat");
     mvprintw(2, 0, "cursor: up/down=j/k  top/bottom=g/G  prev/next=h/l");
     mvprintw(3, 0, "speed: %.2fx  volume: %.0f  shuffle: %s  repeat: %s", 
              speed, volume, shuffle_mode ? "on" : "off", repeat_mode ? "on" : "off");

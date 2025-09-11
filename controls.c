@@ -54,12 +54,12 @@ void handle_keypress(int ch) {
         }
         else if (ch == KEY_BACKSPACE || ch == 127) {
             if (search_len > 0) search_query[--search_len] = '\0';
-            selected_index = 0; // Reset to first match
+            selected_index = 0; // reset to first match
         }
         else if (isprint(ch) && search_len < 255) {
             search_query[search_len++] = (char)ch;
             search_query[search_len] = '\0';
-            selected_index = 0; // Reset to first match
+            selected_index = 0; // reset to first match
         }
         else if (ch == 'j') {
             selected_index++;
@@ -78,7 +78,6 @@ void handle_keypress(int ch) {
         return;
     }
 
-    // normal mode - clamp selected_index to full list bounds
     if (selected_index < 0) selected_index = 0;
     if (selected_index >= song_count) selected_index = song_count - 1;
 
@@ -138,7 +137,7 @@ void handle_keypress(int ch) {
             search_active = true;
             search_len = 0;
             search_query[0] = '\0';
-            selected_index = 0; // Start at first search result
+            selected_index = 0; 
             break;
         case 's':
             shuffle_mode = !shuffle_mode;
